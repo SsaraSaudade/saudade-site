@@ -1,0 +1,6 @@
+- Rajouter les quantités dispos (indiquer si stock < 0)
+- Ouvrir une page pour commander (nouvelle page html)
+- Câbler le retour par mail 
+- Trouver solution d'hebergement pour site dynamique gratuite
+- Rajouter possibilité de supprimer des vêtements (admin)
+- Rajouter une barre pour choisir le type de vetement (à rajouter ds le formulaire admin)

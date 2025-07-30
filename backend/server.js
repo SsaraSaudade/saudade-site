@@ -11,7 +11,6 @@ app.use(express.json());
 const authRoutes = require('./routes/auth');
 const clothingRoutes = require('./routes/clothing');
 
-
 app.use('/api/auth', authRoutes);
 app.use('/api/clothing', clothingRoutes);
 
@@ -20,4 +19,4 @@ mongoose.connect(process.env.MONGO_URI)
     console.log('Connecté à MongoDB');
     app.listen(3000, () => console.log('Serveur lancé sur le port 3000'));
   })
-  .catch((err) => console.error('Erreur MongoDB :', err));
+  .catch(err => console.error('Erreur MongoDB :', err));

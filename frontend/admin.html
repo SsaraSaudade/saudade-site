@@ -23,16 +23,16 @@
   <section class="about">
     <h2>Ajouter un vêtement</h2>
 
-    <form id="addClothingForm">
-      <input type="text" id="name" placeholder="Nom du vêtement" required />
-      <input type="text" id="description" placeholder="Description" required />
-      <input type="number" id="price" placeholder="Prix" required />
-      <input type="url" id="imageUrl" placeholder="URL de l'image" />
-      <button type="submit">Ajouter</button>
-    </form>
+      <form id="addClothingForm" enctype="multipart/form-data">
+        <input type="text" id="name" name="name" placeholder="Nom du vêtement" required />
+        <input type="text" id="description" name="description" placeholder="Description" required />
+        <input type="number" id="price" name="price" placeholder="Prix" required />
+        <input type="file" id="image" name="image" accept="image/*" required />
+        <button type="submit">Ajouter</button>
+      </form>
 
-    <p id="message"></p>
-    <button id="logout">Se déconnecter</button>
+      <p id="message"></p>
+      <button id="logout">Se déconnecter</button>
   </section>
 
   <footer>
@@ -42,3 +42,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+
