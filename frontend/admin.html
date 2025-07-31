@@ -20,20 +20,42 @@
     </nav>
   </header>
 
-  <section class="about">
-    <h2>Ajouter un vêtement</h2>
+<section class="about">
+  <h2>Ajouter un vêtement</h2>
 
-      <form id="addClothingForm" enctype="multipart/form-data">
-        <input type="text" id="name" name="name" placeholder="Nom du vêtement" required />
-        <input type="text" id="description" name="description" placeholder="Description" required />
-        <input type="number" id="price" name="price" placeholder="Prix" required />
-        <input type="file" id="image" name="image" accept="image/*" required />
-        <button type="submit">Ajouter</button>
-      </form>
+  <form id="addClothingForm" enctype="multipart/form-data">
+    <input type="text" id="name" name="name" placeholder="Nom du vêtement" required />
+    <input type="text" id="description" name="description" placeholder="Description" required />
+    <input type="number" id="price" name="price" placeholder="Prix" required />
 
-      <p id="message"></p>
-      <button id="logout">Se déconnecter</button>
-  </section>
+    <!-- Catégorie -->
+    <select id="category" name="category" required>
+      <option value="">-- Choisir une catégorie --</option>
+      <option value="pantalon">Pantalon</option>
+      <option value="robe">Robe</option>
+      <option value="chemise">Chemise</option>
+      <option value="tshirt">T-shirt</option>
+      <option value="jupe">Jupe</option>
+      <option value="manteau">Manteau</option>
+    </select>
+
+    <!-- Genre -->
+    <select id="gender" name="gender" required>
+      <option value="">-- Choisir un genre --</option>
+      <option value="femme">Femme</option>
+      <option value="homme">Homme</option>
+      <option value="unisexe">Unisexe</option>
+    </select>
+
+    <input type="number" name="quantity" placeholder="Quantité" required />
+    <input type="file" id="image" name="image" accept="image/*" required />
+    <button type="submit">Ajouter</button>
+  </form>
+
+  <p id="message"></p>
+  <button id="logout">Se déconnecter</button>
+</section>
+
 
   <footer>
     <p>&copy; 2025 Saudade. Tous droits réservés.</p>
