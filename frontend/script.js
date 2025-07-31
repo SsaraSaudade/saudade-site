@@ -14,7 +14,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
 
   if (res.ok) {
     localStorage.setItem('token', data.token);
-    window.location.href = 'admin.html'; // Redirige vers la page d'ajout
+    window.location.href = 'admin-dashboard.html'; // Redirige vers la page d'ajout
   } else {
     document.getElementById('error').textContent = data.message;
   }
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('token');
 
       // Rediriger vers la page de connexion admin
-      window.location.href = 'admin-login.html';
+      window.location.href = 'index.html';
     });
   }
 });

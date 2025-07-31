@@ -7,26 +7,34 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <header>
-        <div class="logo">
-          <img src="images/logo.png" alt="Logo Saudade" />
-        </div>
-        <nav>
-          <ul>
-            <li><a href="about.html">À propos</a></li>
-            <li><a href="products.html">Produits</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </nav>
-      </header>
+  <div id="menu-container"></div>
 
   <section class="about">
     <h2>À propos</h2>
     <p>Saudade est une marque de vêtements inspirée par la douceur du passé et le style contemporain. Chaque pièce est pensée avec soin, dans une logique éthique et responsable.</p>
-  </section>
+    <div class="portrait-sara">
+        <img src="images/sara.png" alt="Portrait de la créatrice" />
+        <div class="bio">
+          <h3>À propos de la créatrice</h3>
+          <p>Sara Da Costa, fondatrice de Saudade, est une passionnée de mode et d’artisanat textile. Après plusieurs années dans l’industrie du vêtement, elle décide de créer une marque à son image : élégante, responsable et porteuse d’émotion.</p>
+          <p>Son amour pour les tissus naturels, les couleurs douces et les coupes intemporelles se ressent dans chaque collection. Saudade, c’est l’expression d’un style personnel nourri par les souvenirs et les rêves.</p>
+        </div>
+      </div>  
+</section>
+
+
 
   <footer>
     <p>&copy; 2025 Saudade. Tous droits réservés.</p>
   </footer>
+  
+  <script>
+  fetch('menu.html')
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('menu-container').innerHTML = html;
+    })
+    .catch(err => console.error('Erreur chargement menu:', err));
+  </script>
 </body>
 </html>

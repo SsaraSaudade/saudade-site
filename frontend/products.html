@@ -7,22 +7,11 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="images/logo.png" alt="Logo Saudade" />
-    </div>
-    <nav>
-      <ul>
-        <li><a href="about.html">À propos</a></li>
-        <li><a href="products.html">Produits</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div id="menu-container"></div>
 
   <section class="products">
     <h2>Nos Produits</h2>
-    <div class="product-grid">
+    <div class="product-grid" id="products-container">
       <!-- Les produits seront insérés ici dynamiquement -->
     </div>
   </section>
@@ -31,35 +20,63 @@
     <p>&copy; 2025 Saudade. Tous droits réservés.</p>
   </footer>
 
-  <script>
-    async function loadProducts() {
-      try {
-        const res = await fetch('http://localhost:3000/api/clothing');
-        if (!res.ok) throw new Error('Erreur lors du chargement des produits');
+<script>
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
 
-        const products = await res.json();
-        const grid = document.querySelector('.product-grid');
+  async function loadProducts() {
+    try {
+      const category = getQueryParam('category');
+      const res = await fetch('http://localhost:3000/api/clothing');
+      if (!res.ok) throw new Error('Erreur lors du chargement des produits');
 
-        products.forEach(product => {
-          const card = document.createElement('div');
-          card.className = 'product-card';
+      let products = await res.json();
 
-          card.innerHTML = `
-            <img src="${product.imageUrl || 'images/placeholder.png'}" alt="${product.name}" />
-            <h3>${product.name}</h3>
-            <p>${product.description || ''}</p>
-            <p><strong>Prix :</strong> ${product.price} €</p>
-          `;
-
-          grid.appendChild(card);
-        });
-      } catch (error) {
-        console.error(error);
-        document.querySelector('.product-grid').textContent = 'Impossible de charger les produits.';
+      // Filtrer par catégorie si paramètre présent, en comparant en minuscules
+      if (category) {
+        const categoryLower = category.toLowerCase();
+        products = products.filter(p => p.category.toLowerCase() === categoryLower);
       }
-    }
 
-    document.addEventListener('DOMContentLoaded', loadProducts);
-  </script>
+      const container = document.getElementById('products-container');
+
+      if (products.length === 0) {
+        container.innerHTML = '<p>Aucun produit trouvé pour cette catégorie.</p>';
+        return;
+      }
+
+      container.innerHTML = products.map(product => `
+        <div class="product-card">
+          <img src="${product.imageUrl || 'images/placeholder.png'}" alt="${product.name}" />
+          <h3>${product.name}</h3>
+          <p>${product.description || ''}</p>
+          <p><strong>Prix :</strong> ${product.price} €</p>
+        </div>
+      `).join('');
+
+    } catch (error) {
+      console.error(error);
+      const container = document.getElementById('products-container');
+      container.textContent = 'Impossible de charger les produits.';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('menu.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('menu-container').innerHTML = html;
+        loadProducts();
+      })
+      .catch(err => {
+        console.error('Erreur chargement menu:', err);
+        loadProducts();
+      });
+  });
+</script>
+
+
 </body>
 </html>
