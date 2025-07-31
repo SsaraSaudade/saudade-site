@@ -10,9 +10,12 @@ app.use(express.json());
 
 const authRoutes = require('./routes/auth');
 const clothingRoutes = require('./routes/clothing');
+const contactRoutes = require('./routes/contact');  // importe ta route contact
 
 app.use('/api/auth', authRoutes);
 app.use('/api/clothing', clothingRoutes);
+app.use('/api/contact', contactRoutes);  // utilise ta route contact sur /api/contact
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

@@ -12,12 +12,13 @@
 
   <section class="contact">
     <h2>Contact</h2>
-    <form>
-      <input type="text" placeholder="Nom" required />
-      <input type="email" placeholder="Email" required />
-      <textarea placeholder="Votre message" required></textarea>
-      <button type="submit">Envoyer</button>
-    </form>
+   <form id="contact-form">
+  <input type="text" id="name" placeholder="Nom" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <textarea id="message" placeholder="Votre message" required></textarea>
+  <button type="submit">Envoyer</button>
+</form>
+
   </section>
 
   <footer>
@@ -32,5 +33,43 @@
       .catch(err => console.error('Erreur chargement menu:', err));
   </script>
 
+<script>
+  const form = document.getElementById('contact-form');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !email || !message) {
+      alert('Veuillez remplir tous les champs');
+      return;
+    }
+
+    try {
+      const res = await fetch('http://localhost:3000/api/contact', { // adapte l’URL si besoin
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, message })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert(data.message);
+        form.reset();
+      } else {
+        alert(data.message || 'Erreur lors de l’envoi');
+      }
+    } catch (err) {
+      alert('Erreur réseau ou serveur');
+      console.error(err);
+    }
+  });
+  </script>
 </body>
 </html>
