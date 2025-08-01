@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary').v2;
-const auth = require('../routes/auth');
+const auth = require('../middleware/authMiddleware'); // ✅ Middleware de vérification JWT
 const Clothing = require('../models/Clothing');
 
 // Configure Cloudinary

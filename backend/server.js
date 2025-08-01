@@ -28,6 +28,10 @@ mongoose.connect(process.env.MONGO_URI)
 
 // En bas de ton fichier (après les routes API)
   app.use(express.static(path.join(__dirname, '../frontend')));
-  app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/contact.html'));
-});
+  // Serve uniquement les fichiers statiques pour les routes frontend
+  app.use(express.static(path.join(__dirname, '../frontend')));
+
+  // Redirige uniquement les routes "non-API" vers contact.html
+  app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/contact.html'));
+  });
