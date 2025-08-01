@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+const path = require('path');
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +21,13 @@ app.use('/api/contact', contactRoutes);  // utilise ta route contact sur /api/co
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Connecté à MongoDB');
-    app.listen(3000, () => console.log('Serveur lancé sur le port 3000'));
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Serveur lancé sur le port ${PORT}`));
   })
   .catch(err => console.error('Erreur MongoDB :', err));
+
+// En bas de ton fichier (après les routes API)
+  app.use(express.static(path.join(__dirname, '../frontend')));
+  app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/contact.html'));
+});
