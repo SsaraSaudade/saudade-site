@@ -15,9 +15,21 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: function(origin, callback) {
+    // Autoriser requêtes sans origin (ex: Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = `L'origine CORS ${origin} n'est pas autorisée.`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+}));
 
 app.use(express.json());
+app.options('*', cors());
 
 const authRoutes = require('./routes/auth');
 const clothingRoutes = require('./routes/clothing');

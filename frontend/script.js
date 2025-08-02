@@ -1,12 +1,12 @@
+const API_BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  ? 'http://localhost:3001'
+  : 'https://saudade-backend.onrender.com';
+
 // Login form
 document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-
-const API_BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
-  ? 'http://localhost:3001'
-  : 'https://saudade-backend.onrender.com';
 
   const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: 'POST',
