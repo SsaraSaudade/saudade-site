@@ -6,7 +6,13 @@ require('dotenv').config();
 const app = express();
 const path = require('path');
 
-app.use(cors());
+const corsOptions = {
+  origin: ['http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:3001'], // Frontend URLs autorisées
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 const authRoutes = require('./routes/auth');
@@ -21,7 +27,7 @@ app.use('/api/contact', contactRoutes);  // utilise ta route contact sur /api/co
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('Connecté à MongoDB');
-    const PORT = process.env.PORT || 3000;
+    const PORT = process.env.PORT || 3001;
     app.listen(PORT, () => console.log(`Serveur lancé sur le port ${PORT}`));
   })
   .catch(err => console.error('Erreur MongoDB :', err));

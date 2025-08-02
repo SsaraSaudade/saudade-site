@@ -4,7 +4,7 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  const res = await fetch('http://localhost:3000/api/auth/login', {
+  const res = await fetch('http://localhost:3001/api/auth/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
@@ -31,7 +31,7 @@ document.getElementById('addClothingForm')?.addEventListener('submit', async (e)
   const formData = new FormData(form);
 
   try {
-    const res = await fetch('http://localhost:3000/api/clothing', {
+    const res = await fetch('http://localhost:3001/api/clothing', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + token

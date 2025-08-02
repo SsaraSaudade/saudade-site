@@ -26,10 +26,15 @@
     return urlParams.get(param);
   }
 
+const API_BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  ? 'http://localhost:3001'
+  : 'https://saudade-backend.onrender.com';
+
+
   async function loadProducts() {
     try {
       const category = getQueryParam('category');
-      const res = await fetch('http://localhost:3000/api/clothing');
+      const res = await fetch(`${API_BASE_URL}/api/clothing`);
       if (!res.ok) throw new Error('Erreur lors du chargement des produits');
 
       let products = await res.json();
