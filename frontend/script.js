@@ -4,7 +4,11 @@ document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  const res = await fetch('http://localhost:3001/api/auth/login', {
+const API_BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  ? 'http://localhost:3001'
+  : 'https://saudade-backend.onrender.com';
+
+  const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
@@ -31,7 +35,7 @@ document.getElementById('addClothingForm')?.addEventListener('submit', async (e)
   const formData = new FormData(form);
 
   try {
-    const res = await fetch('http://localhost:3001/api/clothing', {
+    const res = await fetch(`${API_BASE_URL}/api/clothing`, {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + token

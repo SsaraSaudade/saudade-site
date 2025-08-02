@@ -37,8 +37,8 @@
 <script>
   const form = document.getElementById('contact-form');
   const API_BASE_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
-    ? 'http://localhost:3001'
-    : 'https://saudade-backend.onrender.com';;
+  ? 'http://localhost:3001'
+  : 'https://saudade-backend.onrender.com';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
