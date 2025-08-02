@@ -1,11 +1,3 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
-
-const app = express();
-const path = require('path');
-
 const corsOptions = {
   origin: [
     'http://localhost:5500',
@@ -17,6 +9,13 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
+const app = express();
+const path = require('path');
 
 app.use(express.json());
 
@@ -39,15 +38,8 @@ mongoose.connect(process.env.MONGO_URI)
 
 // En bas de ton fichier (après les routes API)
   app.use(express.static(path.join(__dirname, '../frontend')));
-  // Serve uniquement les fichiers statiques pour les routes frontend
-  app.use(express.static(path.join(__dirname, '../frontend')));
-
   // Redirige uniquement les routes "non-API" vers contact.html
   app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/contact.html'));
   });
 
-  app.use('/api/clothing', (req, res, next) => {
-  console.log('Appel à /api/clothing');
-  next();
-}, clothingRoutes);
