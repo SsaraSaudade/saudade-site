@@ -7,10 +7,14 @@ const app = express();
 const path = require('path');
 
 const corsOptions = {
-  origin: ['http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:3001', 'https://saudade-site.onrender.com'],
+  origin: [
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'http://localhost:3001',
+    'https://saudade-site.onrender.com'
+  ],
   credentials: true,
 };
-
 
 app.use(cors(corsOptions));
 
@@ -42,3 +46,8 @@ mongoose.connect(process.env.MONGO_URI)
   app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/contact.html'));
   });
+
+  app.use('/api/clothing', (req, res, next) => {
+  console.log('Appel à /api/clothing');
+  next();
+}, clothingRoutes);
